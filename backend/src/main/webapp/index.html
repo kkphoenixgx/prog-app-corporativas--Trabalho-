@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="icon" type="image/png" href="./assets/icon.png">
+        <link rel="stylesheet" href="./styles/index.css">
+         
+        <title>Random Quiz</title>
+    </head>
+    <body>
+      <header class="main-header"> 
+        <div class="header-content">
+          <div class="hamburguer-menu" id="btn-hamburguer-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <h1>Random Quiz</h1>
+        
+        </div>
+        <nav class="container-menu" id="container-menu" >
+          <div class="container-menu-center">
+            <button class="btn-close-menu btn-default" id="btn-close-menu" >Fechar</button>
+          </div>
+          <a href="/backend/quiz">Ver Quizzes</a>
+          <a href="/backend/quiz-form.jsp">Criar Quiz</a>
+        </nav>
+      </header>
+
+
+      <main class="main-content">
+        <div class="quiz-card">
+          <h2>
+            <span class="emoji">🎲</span> 
+            Bem-vindo ao 
+            <span class="brand">Random Quiz</span>
+          </h2>
+          <p class="subtitle">Selecione um assunto para gerar um quiz aleatório e desafie seus conhecimentos!</p>
+          <form id="random-quiz-form" action="/backend/random-quiz" method="get" class="form-modern">
+            <label for="subject-select"><strong>Assunto</strong></label>
+            <select id="subject-select" name="subject" required>
+              <option value="">Carregando...</option>
+            </select>
+            <button class="btn-modern" id="btn-generate-random-quiz" type="submit">
+              <span class="emoji">🚀</span> Gerar Quiz Aleatório
+            </button>
+          </form>
+        </div>
+      </main>
+
+      <script type="text/javascript" src="./js/index.js" ></script>
+      <script type="text/javascript" src="./js/selectAssunto.js" ></script>
+      <script type="text/javascript" src="./js/googleAds.js" ></script>
+      
+    </body>
+</html>

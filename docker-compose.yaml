@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: java-app
+    ports:
+      - "8080:8080"
+    environment:
+      JAVA_HOME: /usr/local/openjdk-21
+      MAVEN_HOME: /opt/maven
+      TOMCAT_HOME: /opt/tomcat
+      CATALINA_HOME: /opt/tomcat
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: meu_banco
+      DB_USER: root
+      DB_PASSWORD: root
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app  # O bind mount está aqui
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    command: ["mysqld"]  # Força o comando correto para o MySQL
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meu_banco
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
