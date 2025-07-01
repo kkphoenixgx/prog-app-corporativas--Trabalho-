@@ -405,3 +405,27 @@ tbody td {
 tbody tr:hover {
   background-color: #e0f7e9;
 }
+
+.btn-delete {
+  display: inline-block;
+  height: 28px;
+  min-width: 60px;
+  padding: 0 12px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95em;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: none;
+  opacity: 0.85;
+}
+
+.btn-delete:hover, .btn-delete:focus {
+  background: #c0392b;
+  color: #fff;
+  opacity: 1;
+}

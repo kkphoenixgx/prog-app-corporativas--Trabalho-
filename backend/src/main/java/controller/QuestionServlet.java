@@ -39,6 +39,20 @@ public class QuestionServlet extends HttpServlet {
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String delete = request.getParameter("delete");
+    if (delete != null && delete.equals("1")) {
+      // DELETE Question
+      int id = Integer.parseInt(request.getParameter("id"));
+      int quizId = Integer.parseInt(request.getParameter("quizId"));
+      try (var conn = ConnectionFactory.getConnection()) {
+        QuestionDao dao = new QuestionDao(conn);
+        dao.deleteById(id);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      response.sendRedirect("question?quizId=" + quizId);
+      return;
+    }
       
     int quizId = Integer.parseInt(request.getParameter("quizId"));
     String description = request.getParameter("description");

@@ -47,31 +47,40 @@
             <th>Descrição</th>
             <th>Opções</th>
             <th>Correta</th>
+            <th>Ações</th>
           </tr>
           <%
             List<Question> questions = (List<Question>) request.getAttribute("questions");
+            int quizId = (request.getAttribute("quizId") != null) ? Integer.parseInt(request.getAttribute("quizId").toString()) : 0;
             for (Question q : questions) {
-              %>
-                <tr>
-                  <td><%= q.getId() %></td>
-                  <td><%= q.getDescription() %></td>
-                  <td>
-                    <ul>
-                      <%
-                        List<Option> opts = q.getOptions();
-                        for (int i = 0; i < opts.size(); i++) {
-                          %>
-                            <li><%= i %>: <%= opts.get(i).getDescription() %></li>
-                          <%
-                        }
+          %>
+            <tr>
+              <td><%= q.getId() %></td>
+              <td><%= q.getDescription() %></td>
+              <td>
+                <ul>
+                  <%
+                    List<Option> opts = q.getOptions();
+                    for (int i = 0; i < opts.size(); i++) {
                       %>
-                    </ul>
-                  </td>
-  
-                  <td><%= q.getCorrectOption() %></td>
-                  
-                </tr>
-              <%
+                        <li><%= i %>: <%= opts.get(i).getDescription() %></li>
+                      <%
+                    }
+                  %>
+                </ul>
+              </td>
+              <td><%= q.getCorrectOption() %></td>
+              <td>
+                <a href="option?questionId=<%= q.getId() %>" style="margin-right:8px;">Ver Opções</a>
+                <form method="post" action="/backend/question" style="display:inline;">
+                  <input type="hidden" name="delete" value="1" />
+                  <input type="hidden" name="id" value="<%= q.getId() %>" />
+                  <input type="hidden" name="quizId" value="<%= quizId %>" />
+                  <button type="submit" class="btn-delete" onclick="return confirm('Tem certeza que deseja deletar esta questão?');">Deletar</button>
+                </form>
+              </td>
+            </tr>
+          <%
             }
           %>
         </table>
@@ -81,5 +90,11 @@
 
 
       <script type="text/javascript" src="./js/index.js" ></script>
+      <script>
+        // Exibe alerta se houver erro de integridade referencial ao deletar questão
+        if (window.location.search.includes('deleteError=options')) {
+          alert('Não é possível deletar a questão porque ainda existem opções vinculadas a ela. Delete as opções primeiro.');
+        }
+      </script>
     </body>
 </html>

@@ -44,10 +44,19 @@
           <ul>
             <%
               List<Option> options = (List<Option>) request.getAttribute("options");
+              int questionId = (request.getAttribute("questionId") != null) ? Integer.parseInt(request.getAttribute("questionId").toString()) : 0;
               for (Option opt : options) {
-                %>
-                  <li><%= opt.getDescription() %></li>
-                <%
+            %>
+              <li>
+                <%= opt.getDescription() %>
+                <form method="post" action="/backend/option" style="display:inline; margin-left:10px;">
+                  <input type="hidden" name="delete" value="1" />
+                  <input type="hidden" name="id" value="<%= opt.getId() %>" />
+                  <input type="hidden" name="questionId" value="<%= questionId %>" />
+                  <button type="submit" class="btn-delete" onclick="return confirm('Tem certeza que deseja deletar esta opção?');">Deletar</button>
+                </form>
+              </li>
+            <%
               }
             %>
           </ul>
@@ -55,5 +64,11 @@
         </section>
 
       <script type="text/javascript" src="./js/index.js" ></script>
+      <script>
+        // Exibe alerta se houver erro de integridade referencial ao deletar opção
+        if (window.location.search.includes('deleteError=option')) {
+          alert('Não é possível deletar a opção porque ainda existem vínculos. Delete as opções primeiro.');
+        }
+      </script>
     </body>
 </html>

@@ -43,6 +43,19 @@ public class QuizServlet extends HttpServlet {
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String delete = request.getParameter("delete");
+    if (delete != null && delete.equals("1")) {
+      // DELETE Quiz
+      int id = Integer.parseInt(request.getParameter("id"));
+      try (var conn = ConnectionFactory.getConnection()) {
+        QuizDao dao = new QuizDao(conn);
+        dao.deleteById(id);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      response.sendRedirect("quiz");
+      return;
+    }
     String subject = request.getParameter("subject");
     String[] questionDescriptions = request.getParameterValues("question");
     String[][] optionsMatrix = request.getParameterValues("options[]") != null ?

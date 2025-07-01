@@ -60,6 +60,11 @@
             <td><%= quiz.getAnswaredAt() %></td>
             <td>
               <a href="question?quizId=<%= quiz.getId() %>">Ver Perguntas</a>
+              <form method="post" action="/backend/quiz" style="display:inline; margin-left:10px;">
+                <input type="hidden" name="delete" value="1" />
+                <input type="hidden" name="id" value="<%= quiz.getId() %>" />
+                <button type="submit" class="btn-delete" onclick="return confirm('Tem certeza que deseja deletar este quiz?');">Deletar</button>
+              </form>
             </td>
           </tr>
         <%
@@ -72,5 +77,11 @@
 
 
     <script type="text/javascript" src="./js/index.js" ></script>
+    <script>
+      // Exibe alerta se houver erro de integridade referencial ao deletar quiz
+      if (window.location.search.includes('deleteError=questions')) {
+        alert('Não é possível deletar o quiz porque ainda existem questões vinculadas a ele. Delete as questões primeiro.');
+      }
+    </script>
   </body>
 </html>
