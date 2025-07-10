@@ -143,7 +143,7 @@ body {
   color: #fff;
   border: none;
   border-radius: 7px;
-  padding: 0.9em 0;
+  padding: 0.4em;
   font-size: 1.13em;
   font-weight: 600;
   cursor: pointer;
@@ -428,4 +428,262 @@ tbody tr:hover {
   background: #c0392b;
   color: #fff;
   opacity: 1;
+}
+
+.login-container, .subscribe-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+  padding: 2.5em 2em 2em 2em;
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+  margin: 4vh auto 2vh auto;
+  animation: fadeIn 0.7s;
+}
+
+.login-container h2, .subscribe-container h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.2em;
+  color: #2d7be0;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+#loginForm, #subscribeForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  align-items: stretch;
+}
+#loginForm label, #subscribeForm label {
+  font-size: 1.08em;
+  margin-bottom: 0.2em;
+}
+#loginForm input, #subscribeForm input {
+  padding: 0.7em 1em;
+  border-radius: 7px;
+  border: 1px solid #bfc9d1;
+  font-size: 1.08em;
+  background: #f7fafd;
+  transition: border 0.2s;
+}
+#loginForm input:focus, #subscribeForm input:focus {
+  border: 1.5px solid #2d7be0;
+  outline: none;
+}
+#loginForm button, #subscribeForm button {
+  background: linear-gradient(90deg, #2d7be0 0%, #4fd1c5 100%);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.9em 0;
+  font-size: 1.13em;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(45,123,224,0.08);
+  transition: background 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+#loginForm button:hover, #subscribeForm button:hover {
+  background: linear-gradient(90deg, #2563b6 0%, #38b2ac 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+#loginError, #subscribeError {
+  color: #e74c3c;
+  font-size: 1em;
+  margin-top: 0.5em;
+  text-align: center;
+}
+#subscribeSuccess {
+  color: #06bb06;
+  font-size: 1em;
+  margin-top: 0.5em;
+  text-align: center;
+}
+.login-container a, .subscribe-container a {
+  color: #2d7be0;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1em;
+  transition: color 0.2s;
+}
+.login-container a:hover, .subscribe-container a:hover {
+  color: #2563b6;
+  text-decoration: underline;
+}
+
+/* Option List Modernization */
+.option-list, select {
+  background: #f5f7fa;
+  color: #222;
+  border: 1px solid #b0b0b0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  transition: border 0.2s;
+  margin-bottom: 10px;
+}
+
+.option-list:focus, select:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+option {
+  background: #f5f7fa;
+  color: #222;
+}
+
+/* Para listas de opções customizadas */
+.option-list {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  min-width: 180px;
+  margin: 10px 0;
+}
+
+/* Host List Table Modern Style */
+#hostTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 0 0;
+  font-family: inherit;
+  font-size: 1em;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background: var(--host-table-bg, #fff);
+  border-radius: 12px;
+  overflow: hidden;
+}
+#hostTable thead {
+  background: #2d7be0;
+  color: #fff;
+}
+#hostTable th, #hostTable td {
+  padding: 14px 10px;
+  text-align: left;
+}
+#hostTable tbody tr {
+  background: var(--host-table-row-bg, #f9f9f9);
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 0.2s;
+}
+#hostTable tbody tr:nth-child(even) {
+  background: var(--host-table-row-alt, #f1f1f1);
+}
+#hostTable tbody tr:hover {
+  background: #e0f7e9;
+}
+#hostTable .btn-modern {
+  margin-right: 6px;
+  min-width: 70px;
+}
+#hostTable .btn-delete {
+  min-width: 70px;
+}
+#hostTable td span {
+  font-size: 0.95em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+#hostTable th {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Filtros e formulário do host-list */
+#hostFormContainer {
+  background: var(--host-form-bg, #f7fafd);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(45,123,224,0.08);
+  padding: 1.2em 1em;
+  margin-bottom: 1.2em;
+}
+
+#filterType, #filterInput, #btn-search, #btn-clear, #btn-new-host {
+  margin-right: 0.5em;
+}
+
+/* Host List Card & Form - Light Gray Containers */
+.host-list-card {
+  background: #f7fafd !important;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  padding: 2.5em 2em 2em 2em;
+  margin: 0 auto;
+}
+.host-form-container {
+  background: #f1f3f6 !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(45,123,224,0.08);
+  padding: 1.2em 1em;
+  margin-bottom: 1.2em;
+  max-width: 500px;
+}
+#hostEditForm label {
+  font-size: 1.08em;
+  margin-bottom: 0.2em;
+  display: block;
+}
+#hostEditForm input[type="text"],
+#hostEditForm input[type="email"],
+#hostEditForm input[type="password"],
+#hostEditForm input[type="color"] {
+  padding: 0.7em 1em;
+  border-radius: 7px;
+  border: 1px solid #bfc9d1;
+  font-size: 1.08em;
+  background: #f7fafd;
+  margin-bottom: 0.7em;
+  width: 100%;
+}
+#hostEditForm input[type="color"] {
+  width: 50px;
+  height: 36px;
+  padding: 0;
+}
+#hostEditForm .buttons {
+  display: flex;
+  gap: 1em;
+  margin-top: 1em;
+}
+#hostEditForm .btn-modern {
+  background: linear-gradient(90deg, #2d7be0 0%, #4fd1c5 100%);
+  color: #fff;
+}
+#hostEditForm .btn-default {
+  background: #000000e5;
+  color: #fff;
+}
+#hostEditForm .btn-delete {
+  background: #e74c3c;
+  color: #fff;
+}
+#hostEditForm .btn-modern:hover {
+  background: linear-gradient(90deg, #2563b6 0%, #38b2ac 100%);
+}
+#hostEditForm .btn-default:hover {
+  background: #23272b;
+}
+#hostEditForm .btn-delete:hover {
+  background: #c0392b;
+}
+
+/* Não muda cor do botão delete nem do menu pelo JS de customização */
+.btn-delete {
+  background: #e74c3c !important;
+  color: #fff !important;
+}
+.container-menu {
+  background: #23272b !important;
+  color: #fff !important;
 }

@@ -26,12 +26,14 @@ public class QuestionServlet extends HttpServlet {
     try (var conn = ConnectionFactory.getConnection()) {
       QuestionDao dao = new QuestionDao(conn);
       List<Question> questions = dao.findByQuizId(quizId);
+      
       request.setAttribute("questions", questions);
       request.setAttribute("quizId", quizId);
+        
       RequestDispatcher dispatcher = request.getRequestDispatcher("question-list.jsp");
       dispatcher.forward(request, response);
-      
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
       response.sendError(500, "Erro ao listar perguntas.");
     }
@@ -40,18 +42,23 @@ public class QuestionServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String delete = request.getParameter("delete");
+    
+    //? ----------- Endpoint -----------
+
     if (delete != null && delete.equals("1")) {
-      // DELETE Question
       int id = Integer.parseInt(request.getParameter("id"));
       int quizId = Integer.parseInt(request.getParameter("quizId"));
+
       try (var conn = ConnectionFactory.getConnection()) {
         QuestionDao dao = new QuestionDao(conn);
         dao.deleteById(id);
-      } catch (Exception e) {
+      }
+      catch (Exception e) {
         e.printStackTrace();
       }
       response.sendRedirect("question?quizId=" + quizId);
       return;
+    
     }
       
     int quizId = Integer.parseInt(request.getParameter("quizId"));
@@ -69,10 +76,11 @@ public class QuestionServlet extends HttpServlet {
     Question question = new Question(quizId, correctOption, description, options);
 
     try (var conn = ConnectionFactory.getConnection()) {
-        QuestionDao dao = new QuestionDao(conn);
-        dao.save(question, quizId);
-    } catch (Exception e) {
-        e.printStackTrace();
+      QuestionDao dao = new QuestionDao(conn);
+      dao.save(question, quizId);
+    } 
+    catch (Exception e) {
+      e.printStackTrace();
     }
 
     response.sendRedirect("success.jsp");

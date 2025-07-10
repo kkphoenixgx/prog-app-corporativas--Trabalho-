@@ -37,9 +37,9 @@ public class OptionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String delete = request.getParameter("delete");
         if (delete != null && delete.equals("1")) {
-            // DELETE Option
             int id = Integer.parseInt(request.getParameter("id"));
             int questionId = Integer.parseInt(request.getParameter("questionId"));
+            
             try (var conn = ConnectionFactory.getConnection()) {
                 OptionDao dao = new OptionDao(conn);
                 dao.deleteById(id);

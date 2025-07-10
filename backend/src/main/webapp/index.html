@@ -24,8 +24,11 @@
           <div class="container-menu-center">
             <button class="btn-close-menu btn-default" id="btn-close-menu" >Fechar</button>
           </div>
-          <a href="/backend/quiz">Ver Quizzes</a>
-          <a href="/backend/quiz-form.jsp">Criar Quiz</a>
+          <a href="/backend/quiz" class="btn-modern">Ver Quizzes</a>
+          <a href="/backend/quiz-form.jsp" class="btn-modern">Criar Quiz</a>
+          <a href="/backend/login-form.jsp" class="btn-modern">Login / Subscribe</a>
+          <a href="/backend/host-list.jsp" class="btn-modern">Listar Hosts</a>
+          <button id="btn-logout" class="btn-modern" onclick="logout()">Logout</button>
         </nav>
       </header>
 
@@ -46,13 +49,21 @@
             <button class="btn-modern" id="btn-generate-random-quiz" type="submit">
               <span class="emoji">🚀</span> Gerar Quiz Aleatório
             </button>
+
           </form>
         </div>
       </main>
 
       <script type="text/javascript" src="./js/index.js" ></script>
       <script type="text/javascript" src="./js/selectAssunto.js" ></script>
-      <script type="text/javascript" src="./js/googleAds.js" ></script>
+      <script src="./js/applyCustomization.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('btn-logout').style.display = '';
+        });
+        
+
+      </script>
       
     </body>
 </html>

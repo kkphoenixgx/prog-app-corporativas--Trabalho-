@@ -58,10 +58,32 @@ public class QuestionDao {
     }
 
     public void deleteById(int id) throws SQLException {
+        // Primeiro deleta todas as opções da questão
+        optionDAO.deleteByQuestionId(id);
+        // Depois deleta a questão
         String sql = "DELETE FROM Question WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
+        }
+    }
+
+    public void update(Question question) throws SQLException {
+        // Atualiza a questão
+        String sql = "UPDATE Question SET description = ?, correctOption = ? WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, question.getDescription());
+            stmt.setInt(2, question.getCorrectOption());
+            stmt.setInt(3, question.getId());
+            stmt.executeUpdate();
+        }
+        
+        // Remove opções antigas
+        optionDAO.deleteByQuestionId(question.getId());
+        
+        // Insere novas opções
+        for (Option option : question.getOptions()) {
+            optionDAO.save(option, question.getId());
         }
     }
 }

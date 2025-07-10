@@ -3,8 +3,8 @@
 <%@ page import="model.Question" %>
 <%@ page import="model.Option" %>
 
-<%@ pagecontentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglibprefix="c" uri="jakarta.tags.core" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,11 +28,13 @@
         
         <div class="container-menu" id="container-menu" >
           <div class="container-menu-center">
-            <button class="btn-close-menu btn-default" id="btn-close-menu" >close</button>
+            <button class="btn-close-menu btn-default" id="btn-close-menu" >Fechar</button>
           </div>
-          
-          <a href="/backend/quiz">Ver Quizzes</a><br>
-          <a href="/backend/quiz-form.jsp">Criar Quiz</a>
+          <a href="/backend/quiz" class="btn-modern">Ver Quizzes</a>
+          <a href="/backend/quiz-form.jsp" class="btn-modern">Criar Quiz</a>
+          <a href="/backend/login-form.jsp" class="btn-modern">Login / Subscribe</a>
+          <a href="/backend/host-list.jsp" class="btn-modern">Listar Hosts</a>
+          <button id="btn-logout" class="btn-modern" onclick="logout()">Logout</button>
         </div>
       
       </header>
@@ -67,6 +69,12 @@
                 }
               %>
             </form>
+          <% } else { %>
+            <div style="text-align: center; padding: 2em;">
+              <h3>Nenhum quiz encontrado</h3>
+              <p>Não foi possível carregar um quiz aleatório.</p>
+              <a href="/backend/index.html" class="btn-modern">Voltar ao Início</a>
+            </div>
           <% } %>
 
           <strong class="score" >
@@ -102,9 +110,12 @@
       <script type="text/javascript" src="./js/index.js" ></script>
       <script type="text/javascript" src="./js/randomQuiz.js" ></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+      <script src="./js/applyCustomization.js"></script>
       <script>
+        console.log('[random-quiz] Página carregada');
+        console.log('[random-quiz] Quiz disponível:', quiz != null ? "true" : "false" );
+        
         document.getElementById('btn-save-pdf').addEventListener('click', function () {
-          // Seleciona a seção que você quer salvar como PDF
           const element = document.querySelector('.quizes');
           html2pdf().from(element).save('quiz.pdf');
         });

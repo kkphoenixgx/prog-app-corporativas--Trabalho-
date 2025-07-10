@@ -46,4 +46,12 @@ public class OptionDao {
         stmt.executeUpdate();
     }
   }
+
+  public void deleteByQuestionId(int questionId) throws SQLException {
+    String sql = "DELETE FROM OptionTable WHERE question_id = ?";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, questionId);
+        stmt.executeUpdate();
+    }
+  }
 }
