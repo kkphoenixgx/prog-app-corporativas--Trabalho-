@@ -105,6 +105,7 @@ public class QuizServlet extends HttpServlet {
       response.sendRedirect("quiz");
       return;
     }
+    
     String subject = request.getParameter("subject");
     String[] questionDescriptions = request.getParameterValues("question");
     String[][] optionsMatrix = request.getParameterValues("options[]") != null ?

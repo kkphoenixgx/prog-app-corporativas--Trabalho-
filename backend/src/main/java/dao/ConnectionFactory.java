@@ -25,4 +25,23 @@ public class ConnectionFactory {
 
         return null;
     }
+
+    public static Connection getTestConnection() {
+        String testUrl = "jdbc:mysql://localhost:3306/meu_banco?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+        String testUser = "root";
+        String testPassword = "root";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            return DriverManager.getConnection(testUrl, testUser, testPassword);
+        } catch (ClassNotFoundException e) {
+            System.err.println("[TEST] Driver JDBC não encontrado.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("[TEST] Erro ao conectar ao banco de dados.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
