@@ -23,6 +23,8 @@ public class QuizDao {
         this.questionDAO = new QuestionDao(conn);
     }
 
+    //? ----------- Create -----------
+
     public void save(Quiz quiz) throws SQLException {
         String sql = "INSERT INTO Quiz (subject, answered_at) VALUES (?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -39,6 +41,41 @@ public class QuizDao {
             }
         }
     }
+
+    public int createQuiz(Quiz quiz) throws SQLException {
+        String sql = "INSERT INTO Quiz (subject, answered_at) VALUES (?, ?)";
+        
+        int errorFlag = -1;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, quiz.getSubject());
+            stmt.setTimestamp(2, new Timestamp(quiz.getAnswaredAt().getTime()));
+            stmt.executeUpdate();
+            
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int quizId = rs.getInt(1);
+                    for (Question question : quiz.getQuestions()) {
+                        questionDAO.save(question, quizId);
+                    }
+                    return quizId;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return errorFlag;
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return errorFlag;
+        }
+
+        return errorFlag;
+    }
+
+
+    //? ----------- Read -----------
 
     public List<String> findDistinctSubjects() throws SQLException {
         List<String> subjects = new ArrayList<>();
@@ -104,6 +141,8 @@ public class QuizDao {
         return quizzes;
     }
 
+    //? ----------- Delete -----------
+
     public void deleteById(int id) throws SQLException {
         // Primeiro deleta as questões (que automaticamente deleta as opções)
         List<Question> questions = questionDAO.findByQuizId(id);
@@ -119,7 +158,8 @@ public class QuizDao {
         }
     }
 
-    // Adicionando método para atualizar quiz
+    //? ----------- Update -----------
+
     public void update(Quiz quiz) throws SQLException {
         // Atualiza o quiz
         String sql = "UPDATE Quiz SET subject = ?, answered_at = ? WHERE id = ?";
