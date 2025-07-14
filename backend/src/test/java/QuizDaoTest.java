@@ -60,7 +60,7 @@ public class QuizDaoTest {
   }
 
   @Test
-  public void testRead() {
+  public void testReadAll() {
     try {
       List<Quiz> quizzes = quizDao.findAll();
       assertNotNull(quizzes);
@@ -70,6 +70,31 @@ public class QuizDaoTest {
       fail("Erro ao buscar quizzes: " + e.getMessage());
     }
   }
+  @Test
+  public void testListarUm() {
+
+    try {
+      Quiz quiz = createMockQuiz("Matemática");
+      quizDao.save(quiz);
+
+      List<Quiz> quizzes = quizDao.findBySubject("Matemática");
+      assertFalse(quizzes.isEmpty());
+
+      int id = quizzes.get(0).getId();
+
+      Quiz found = quizDao.findById(id);
+      assertNotNull(found);
+      assertEquals("Matemática", found.getSubject());
+      System.out.println("[LISTAR UM] Quiz encontrado com ID: " + id);
+    
+    } 
+    catch (Exception e) {
+      e.printStackTrace();
+      fail("Erro no listarUm: " + e.getMessage());
+    }
+
+  }
+
 
   @Test
   public void testUpdate() {
@@ -116,6 +141,7 @@ public class QuizDaoTest {
       fail("Erro ao deletar quiz: " + e.getMessage());
     }
   }
+
 
   //? ---------- HELPERS ----------
 
