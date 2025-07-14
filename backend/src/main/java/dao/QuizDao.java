@@ -141,6 +141,23 @@ public class QuizDao {
         return quizzes;
     }
 
+    public Quiz findById(int id) throws SQLException {
+        String sql = "SELECT id, subject, answered_at FROM Quiz WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String subject = rs.getString("subject");
+                    Date answeredAt = new Date(rs.getTimestamp("answered_at").getTime());
+                    List<Question> questions = questionDAO.findByQuizId(id);
+                    return new Quiz(id, subject, answeredAt, questions);
+                }
+            }
+        }
+        return null;
+    }
+
+
     //? ----------- Delete -----------
 
     public void deleteById(int id) throws SQLException {
